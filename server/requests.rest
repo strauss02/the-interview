@@ -1,0 +1,28 @@
+PUT http://localhost:3001/update
+Content-Type: application/json
+
+{
+  "questionId": "618fdaa753f0ca8aee193021",
+  "newTitle": "What is Love?"
+}
+
+###
+
+POST http://localhost:3001/create  
+Content-Type: application/json
+
+{
+  "title": "Knock Knoch",
+   "correctAnswer": "Who's There?",
+  "answers": [
+    "When a senior tells you to rewrite your function",
+    "A technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result",
+    "When you get up in the morning and miraculously your bug is fixed"
+  ],
+  "difficulty": 3,
+}
+
+
+###
+
+GET http://localhost:3001/list 
