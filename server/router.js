@@ -30,7 +30,7 @@ router.post('/create', (req, res) => {
     title: body.title,
     correctAnswer: body.correctAnswer,
     answers: body.answers,
-    diffifculty: body.diffifculty,
+    difficulty: body.difficulty,
   })
 
   newQuestion
@@ -39,6 +39,34 @@ router.post('/create', (req, res) => {
       res.send('Question saved!')
     })
     .catch((err) => res.end(`Error while saving! ${err}`))
+})
+
+// Delete question by id
+router.delete('/remove/:id', (req, res) => {
+  console.log(req.params.id)
+  const id = req.params.id
+  Question.findByIdAndRemove(id, (err, docs) => {
+    if (err) {
+      res.end(err)
+    } else {
+      console.log('remove usccess')
+      res.send('yay!')
+    }
+  })
+})
+
+// Get all questions with difficulty higher than query
+router.get('/read/by/difficulty/:difficulty', (req, res) => {
+  const reqDifficulty = req.params.difficulty
+  console.log(reqDifficulty)
+  Question.find({ difficulty: { $gte: reqDifficulty } })
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      res.send('oh noes!')
+      console.log(err)
+    })
 })
 
 module.exports = router
