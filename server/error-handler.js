@@ -6,7 +6,8 @@ function errorHandler(err, req, res, next) {
     console.log(err.message)
     return
   }
-  res.status(500).json('something went wrong')
+  console.log(err)
+  res.status(500).send('something went wrong')
 }
 
 module.exports = errorHandler

@@ -1,34 +1,35 @@
 /* eslint-disable new-cap */
 
-/** ******** Import tools ******* */
+/* =========== Import tools ========= */
 
 const express = require('express')
 const app = new express()
 const cors = require('cors')
 
-/** ****** Import router modules ******* */
+/* ========== Constants ======== */
+
+/* ======== Import router modules ======== */
 
 const errorHandler = require('./error-handler')
+const router = require('./router')
 
-/** ***** General Middleware *********** */
+/* =========== General Middleware ============ */
 
 app.use(cors())
 app.use(express.json())
 
-/** ****** Routing ************ */
+/* ============ Routing ============= */
 
 // app.use(express.static('public'))
 
-// app.use('/', redirectRouter)
+app.use('/', router)
 
-app.get('/list', (req, res) => {
-  res.send('aloha')
-})
-
-/** ****** Error Handler ************ */
+/* ========== Error Handler ============= */
 
 app.use(errorHandler)
 
-/** ************************* */
+/* ============================ */
 
-app.listen(process.env.PORT || 3000, () => console.log('Server is running...'))
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, () => console.log('Server is running on port', PORT))
