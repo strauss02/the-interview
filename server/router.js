@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const router = express.Router()
+const ApiError = require('./ApiError')
 const Question = require('./models/question')
 
 // Return JSON of all questions
@@ -14,9 +15,10 @@ router.get('/list', (req, res) => {
 
 // Update a question by its ID
 router.put('/update', (req, res) => {
-  // const questionId = req.body.questionId
-  // const newTitle = req.body.newTitle
   const { newTitle, questionId } = req.body
+  if (newTitle === '') {
+    throw ApiError.badRequest(`Whoops! Can't send an empty request. `)
+  }
   Question.findOneAndUpdate({ _id: questionId }, { title: newTitle }).then(
     (result) => res.json(result)
   )
@@ -25,6 +27,10 @@ router.put('/update', (req, res) => {
 // Create a question
 router.post('/create', (req, res) => {
   const body = req.body
+  console.log(Object.values(body))
+  if (Object.values(body).some((entry) => entry === '')) {
+    throw ApiError.badRequest('Whoops! one or more of the fields is empty.')
+  }
 
   const newQuestion = new Question({
     title: body.title,
