@@ -17,9 +17,13 @@ app.use(express.json())
 
 /** ****** Routing ************ */
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
 
-app.use('/', redirectRouter)
+// app.use('/', redirectRouter)
+
+app.get('/list', (req, res) => {
+  res.send('aloha')
+})
 
 /** ****** Error Handler ************ */
 
